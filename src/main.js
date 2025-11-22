@@ -1,22 +1,25 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const backendUrl = import.meta.env.VITE_API_BASE_URL;
 
-    // 1. Retrieve the token from LocalStorage
+    // 1. Check if token exists
     const token = localStorage.getItem('accessToken');
 
-    // 2. If no token exists, redirect immediately to login
+    // DEBUG: Print the token to the console
+    console.log("Current Token in LocalStorage:", token);
+
+    // 2. TEMPORARILY COMMENT OUT THIS REDIRECT
+    // This allows the page to load so you can read the console
     if (!token) {
-        window.location.href = '/index.html';
-        return;
+        console.warn("No token found! I would normally redirect here.");
+        // window.location.href = '/index.html';
+        // return; // Don't return, let it try the fetch (it will fail, but we want to see that)
     }
 
     try {
         const response = await fetch(`${backendUrl}/alumnos/me`, {
             headers: {
-                // 3. Send the token in the Authorization header
                 'Authorization': `Bearer ${token}`
-            },
-            // REMOVE credentials: 'include' (it conflicts with some CORS setups if not careful, and isn't needed here)
+            }
         });
 
         if (response.ok) {
