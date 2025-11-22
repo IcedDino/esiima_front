@@ -18,15 +18,11 @@ document.getElementById('login-form').addEventListener('submit', async function(
         });
 
         if (response.ok) {
-            // 1. Parse the JSON response to get the token
             const data = await response.json();
-
-            // 2. Save the token to LocalStorage explicitly
             if (data.access_token) {
                 localStorage.setItem('accessToken', data.access_token);
                 window.location.href = '/main.html';
             } else {
-                console.error("Token missing in response");
                 alert("Login successful but no token received.");
             }
         } else {
@@ -35,6 +31,6 @@ document.getElementById('login-form').addEventListener('submit', async function(
         }
     } catch (error) {
         console.error('Error during login:', error);
-        alert('An error occurred during login. Please try again later.');
+        alert('An error occurred during login.');
     }
 });
