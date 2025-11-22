@@ -18,9 +18,9 @@ document.getElementById('login-form').addEventListener('submit', async function(
         });
 
         if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('accessToken', data.access_token);
-            window.location.href = '/main.html';
+        // The browser has automatically saved the HttpOnly cookie.
+        // We just need to redirect.
+        window.location.href = '/main.html';
         } else {
             const errorData = await response.json();
             alert(errorData.detail || 'Login failed');

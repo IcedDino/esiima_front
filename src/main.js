@@ -1,24 +1,26 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) {
-        window.location.href = '/index.html'; // Redirect to login if no token
-        return;
-    }
+    // 1. REMOVE the LocalStorage check. We can't see the cookie from JS.
+    // const token = localStorage.getItem('accessToken');
+    // if (!token) ...
 
     const backendUrl = import.meta.env.VITE_API_BASE_URL;
 
     try {
+        // 2. Update the fetch request
         const response = await fetch(`${backendUrl}/alumnos/me`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+            // REMOVE Authorization Header
+            // headers: { 'Authorization': `Bearer ${token}` },
+
+            // ADD credentials: 'include'. This tells the browser to send the cookie.
+            credentials: 'include'
         });
 
         if (response.ok) {
             const data = await response.json();
             populateStudentData(data);
         } else {
-            // Handle errors, e.g., token expired
+            // If the cookie is missing or invalid, the backend returns 401.
+            // THIS is where we redirect to login.
             console.error('Failed to fetch student data:', await response.text());
             window.location.href = '/index.html';
         }
