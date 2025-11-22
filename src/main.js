@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             console.error('Failed to fetch student data:', await response.text());
             // If the token is invalid (expired), clear it and redirect
-            localStorage.removeItem('accessToken');
-            window.location.href = '/index.html';
+            //localStorage.removeItem('accessToken');
+            //window.location.href = '/index.html';
         }
     } catch (error) {
         console.error('Error fetching student data:', error);
