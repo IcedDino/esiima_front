@@ -18,9 +18,17 @@ document.getElementById('login-form').addEventListener('submit', async function(
         });
 
         if (response.ok) {
-        // The browser has automatically saved the HttpOnly cookie.
-        // We just need to redirect.
-        window.location.href = '/main.html';
+            // 1. Parse the JSON response to get the token
+            const data = await response.json();
+
+            // 2. Save the token to LocalStorage explicitly
+            if (data.access_token) {
+                localStorage.setItem('accessToken', data.access_token);
+                window.location.href = '/main.html';
+            } else {
+                console.error("Token missing in response");
+                alert("Login successful but no token received.");
+            }
         } else {
             const errorData = await response.json();
             alert(errorData.detail || 'Login failed');
