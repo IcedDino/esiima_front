@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     try {
-        const response = await fetch(`${backendUrl}/extracurriculares`, {
+        const response = await fetch(`${backendUrl}/extracurriculares/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,31 +24,28 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (data.length === 0) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 11;
-                cell.textContent = 'No hay actividades extracurriculares para mostrar.';
+                cell.colSpan = 8;
+                cell.textContent = 'No estás inscrito en ninguna actividad extracurricular.';
                 cell.style.textAlign = 'center';
             } else {
-                data.forEach(activity => {
+                data.forEach(enrollment => {
                     const row = tableBody.insertRow();
-                    row.insertCell().textContent = activity.id;
-                    row.insertCell().textContent = activity.nombre;
-                    row.insertCell().textContent = activity.descripcion;
-                    row.insertCell().textContent = activity.tipo;
-                    row.insertCell().textContent = new Date(activity.fecha_inicio).toLocaleDateString();
-                    row.insertCell().textContent = new Date(activity.fecha_fin).toLocaleDateString();
-                    row.insertCell().textContent = activity.cupo_maximo;
-                    row.insertCell().textContent = activity.cupo_actual;
-                    row.insertCell().textContent = activity.responsable_id;
-                    row.insertCell().textContent = activity.activo ? 'Sí' : 'No';
-                    row.insertCell().textContent = new Date(activity.created_at).toLocaleString();
+                    row.insertCell().textContent = enrollment.extracurricular.nombre;
+                    row.insertCell().textContent = enrollment.extracurricular.descripcion;
+                    row.insertCell().textContent = enrollment.extracurricular.tipo;
+                    row.insertCell().textContent = new Date(enrollment.fecha_inscripcion).toLocaleDateString();
+                    row.insertCell().textContent = enrollment.calificacion || 'N/A';
+                    row.insertCell().textContent = enrollment.horas_cumplidas;
+                    row.insertCell().textContent = enrollment.completado ? 'Sí' : 'No';
+                    row.insertCell().textContent = enrollment.fecha_completado ? new Date(enrollment.fecha_completado).toLocaleDateString() : 'N/A';
                 });
             }
         } else {
             const errorData = await response.json();
-            alert(errorData.detail || 'Error al cargar las actividades extracurriculares.');
+            alert(errorData.detail || 'Error al cargar tus actividades extracurriculares.');
         }
     } catch (error) {
-        console.error('Error al cargar las actividades extracurriculares:', error);
-        alert('Ocurrió un error al cargar las actividades extracurriculares.');
+        console.error('Error al cargar tus actividades extracurriculares:', error);
+        alert('Ocurrió un error al cargar tus actividades extracurriculares.');
     }
 });
