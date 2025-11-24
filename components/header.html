@@ -1,0 +1,42 @@
+<div class="logo-container">
+    <img src="/1_20-Logo-completo-300x300.png" alt="logo">
+</div>
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tr>
+        <td width="60%">&nbsp;</td>
+        <td id="topnav" width="40%">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td class="n selected">
+                        <div align="center"><a href="xweinscri.jsp?app=1.1.8">Control Escolar</a></div>
+                    </td>
+                    <td class="n">
+                        <div align="center"><a href="xwfpaad.jsp?app=1.2.1">Cajas</a></div>
+                    </td>
+                    <td class="n">
+                        <div align="center"><a href="xwexmenu.jsp?app=1.3.1">Formación<br>Integral</a></div>
+                    </td>
+                    <td class="n">
+                        <div align="center"><a href="xwevmenu.jsp?app=1.4.1">Instrumentos<br>de Evaluación</a></div>
+                    </td>
+                    <td class="n">
+                        <div align="center"><a href="xwgkses.jsp">Salir</a></div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script>
+    window.addEventListener('load', function() {
+        var tabs = document.querySelectorAll('#topnav .n');
+        var maxWidth = 0;
+        tabs.forEach(function(tab) {
+            if (tab.offsetWidth > maxWidth) maxWidth = tab.offsetWidth;
+        });
+        tabs.forEach(function(tab) {
+            tab.style.width = maxWidth + 'px';
+        });
+    });
+</script>
