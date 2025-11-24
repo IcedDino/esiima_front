@@ -21,7 +21,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
             const data = await response.json();
             if (data.access_token) {
                 localStorage.setItem('accessToken', data.access_token);
-                window.location.href = '/main.html';
+                window.location.href = '/pages/main.html';
             } else {
                 alert("Login successful but no token received.");
             }
