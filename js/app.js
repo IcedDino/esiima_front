@@ -1,14 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const loadComponent = (id, url) => {
-        fetch(url)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById(id).innerHTML = data;
-            })
-            .catch(error => console.error(`Error loading component from ${url}:`, error));
-    };
+import headerHtml from '/components/header.html?raw';
+import navigationHtml from '/components/navigation.html?raw';
+import footerHtml from '/components/footer.html?raw';
 
-    loadComponent("header-container", "/components/header.html");
-    loadComponent("navigation-container", "/components/navigation.html");
-    loadComponent("footer-container", "/components/footer.html");
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("header-container").innerHTML = headerHtml;
+    document.getElementById("navigation-container").innerHTML = navigationHtml;
+    document.getElementById("footer-container").innerHTML = footerHtml;
 });
