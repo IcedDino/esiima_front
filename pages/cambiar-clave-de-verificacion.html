@@ -15,8 +15,23 @@
 <div id="navigation-container"></div>
 
 <center>
-    <span class="Titulo">Cambiar Clave de Verificación</span>
-    <!-- Add page-specific content here -->
+  <span class="Titulo">Cambiar Clave de Verificación</span>
+
+  <form id="change-verification-key-form" style="width: 50%; margin-top: 2rem;">
+    <div class="form-group">
+        <label for="current-verification-key">Clave de Verificación Actual</label>
+        <input type="password" class="form-control" id="current-verification-key" required>
+    </div>
+    <div class="form-group">
+        <label for="new-verification-key">Nueva Clave de Verificación</label>
+        <input type="password" class="form-control" id="new-verification-key" required>
+    </div>
+    <div class="form-group">
+        <label for="confirm-verification-key">Confirmar Nueva Clave de Verificación</label>
+        <input type="password" class="form-control" id="confirm-verification-key" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Cambiar Clave de Verificación</button>
+  </form>
 </center>
 
 <div id="footer-container"></div>
@@ -25,6 +40,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script type="module" src="/js/app.js"></script>
+<script type="module" src="/src/cambiar-clave-de-verificacion.js"></script>
 
 </body>
 </html>

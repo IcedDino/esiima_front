@@ -15,8 +15,23 @@
 <div id="navigation-container"></div>
 
 <center>
-    <span class="Titulo">Calificaciones Parciales</span>
-    <!-- Add page-specific content here -->
+  <span class="Titulo">Calificaciones Parciales</span>
+
+  <table width="98%" border="1" align="center" cellspacing="0">
+    <thead>
+        <tr>
+            <th class="EtiquetaEnc">Materia</th>
+            <th class="EtiquetaEnc">Grupo</th>
+            <th class="EtiquetaEnc">Parcial 1</th>
+            <th class="EtiquetaEnc">Parcial 2</th>
+            <th class="EtiquetaEnc">Parcial 3</th>
+            <th class="EtiquetaEnc">Promedio</th>
+        </tr>
+    </thead>
+    <tbody id="calificaciones-table-body">
+        <!-- Data will be inserted here by JavaScript -->
+    </tbody>
+  </table>
 </center>
 
 <div id="footer-container"></div>
@@ -25,6 +40,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script type="module" src="/js/app.js"></script>
+<script type="module" src="/src/calificaciones-parciales.js"></script>
 
 </body>
 </html>
