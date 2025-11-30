@@ -6,7 +6,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'pages/main.html'),
+        main: resolve(__dirname, 'pages/situacion-actual.html'),
         index: resolve(__dirname, 'index.html'),
         "materias-y-faltas": resolve(__dirname, "pages/materias-y-faltas.html"),
         horario: resolve(__dirname, "pages/horario.html"),
