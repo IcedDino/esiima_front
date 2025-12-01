@@ -11,6 +11,33 @@ document.addEventListener("DOMContentLoaded", function() {
         headerContainer.innerHTML = headerHtml;
         // Add class to body when header is present
         document.body.classList.add('has-header');
+
+        // Highlight active top navigation item based on current page
+        const currentPath = window.location.pathname;
+        let activePage = 'control-escolar';
+
+        if (currentPath.includes('cajas')) {
+            activePage = 'cajas';
+        } else if (currentPath.includes('situacion-actual')) {
+            activePage = 'control-escolar';
+        }
+
+        const navItems = document.querySelectorAll('#topnav .nav-item');
+        navItems.forEach(item => item.classList.remove('selected'));
+
+        const activeLink = document.querySelector(`#topnav a[data-page="${activePage}"]`);
+        if (activeLink && activeLink.parentElement.classList.contains('nav-item')) {
+            activeLink.parentElement.classList.add('selected');
+        }
+
+        // Set header username from localStorage if available
+        const headerUsername = document.getElementById('header-username');
+        if (headerUsername) {
+            const storedName = localStorage.getItem('studentName');
+            if (storedName && storedName.trim().length > 0) {
+                headerUsername.textContent = storedName;
+            }
+        }
     }
     if (navigationContainer) {
         navigationContainer.innerHTML = navigationHtml;
