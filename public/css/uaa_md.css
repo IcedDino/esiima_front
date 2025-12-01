@@ -17,12 +17,19 @@ body {
 /* Add padding-top only when header is present */
 body:has(#header-container),
 body:has(.main-header) {
-    padding-top: 110px;
+    padding-top: 110px !important;
 }
 
 /* Fallback for browsers without :has() support */
 body.has-header {
-    padding-top: 110px;
+    padding-top: 110px !important;
+}
+
+/* Ensure main content area has proper spacing */
+center,
+.container {
+    padding-top: 20px;
+    min-height: calc(100vh - 110px);
 }
 
 /* ===== HEADER STYLES ===== */
