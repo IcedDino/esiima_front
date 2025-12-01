@@ -14,6 +14,17 @@ body {
     padding: 0;
 }
 
+/* Add padding-top only when header is present */
+body:has(#header-container),
+body:has(.main-header) {
+    padding-top: 110px;
+}
+
+/* Fallback for browsers without :has() support */
+body.has-header {
+    padding-top: 110px;
+}
+
 /* ===== HEADER STYLES ===== */
 .main-header {
     background: linear-gradient(135deg, #003366 0%, #004080 50%, #002244 100%);
@@ -253,34 +264,10 @@ body {
     padding: 20px 0;
 }
 
-.menu-category {
-    margin-bottom: 25px;
-    padding: 0 15px;
-}
-
-.category-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #ffd700;
-    font-size: 0.95em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin: 0 0 12px 0;
-    padding: 10px 15px;
-    background: linear-gradient(90deg, rgba(255, 215, 0, 0.15) 0%, transparent 100%);
-    border-left: 3px solid #ffd700;
-}
-
-.category-icon {
-    font-size: 1.2em;
-}
-
 .menu-list {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 0 15px;
 }
 
 .menu-list li {
@@ -638,6 +625,7 @@ a:focus {
     body:has(#subnav:not(.sidebar-closed)),
     body.has-sidebar:not(.sidebar-closed) {
         padding-left: 260px;
+        padding-top: 100px;
     }
 }
 
@@ -688,6 +676,7 @@ a:focus {
     
     body {
         padding-left: 0;
+        padding-top: 95px;
     }
 
     .footer-content {

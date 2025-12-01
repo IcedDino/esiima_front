@@ -7,7 +7,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const navigationContainer = document.getElementById("navigation-container");
     const footerContainer = document.getElementById("footer-container");
     
-    if (headerContainer) headerContainer.innerHTML = headerHtml;
+    if (headerContainer) {
+        headerContainer.innerHTML = headerHtml;
+        // Add class to body when header is present
+        document.body.classList.add('has-header');
+    }
     if (navigationContainer) {
         navigationContainer.innerHTML = navigationHtml;
         // Add class to body when sidebar is present
