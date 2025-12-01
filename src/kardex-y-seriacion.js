@@ -112,21 +112,34 @@ document.addEventListener('DOMContentLoaded', async function() {
             const materiaId = event.target.dataset.materiaId;
             const materiaNombre = event.target.dataset.materiaNombre;
             const partialGradesContainer = document.getElementById('partial-grades-container');
-            const partialGradesTitle = document.getElementById('partial-grades-materia-title');
+            const partialGradesTableHead = document.getElementById('partial-grades-table-head'); // Get the thead
             const partialGradesTableBody = document.getElementById('partial-grades-table-body');
 
             partialGradesTitle.textContent = `Calificaciones Parciales para: ${materiaNombre}`;
+            partialGradesTableHead.innerHTML = ''; // Clear previous headers
             partialGradesTableBody.innerHTML = ''; // Clear previous content
             
-            // Update table header for partial grades
-            partialGradesTableBody.innerHTML = `
-                <tr>
-                    <th class="EtiquetaEnc">Parcial 1</th>
-                    <th class="EtiquetaEnc">Parcial 2</th>
-                    <th class="EtiquetaEnc">Parcial 3</th>
-                    <th class="EtiquetaEnc">Promedio</th>
-                </tr>
-            `;
+            // Dynamically create headers for partial grades
+            const headerRow = partialGradesTableHead.insertRow(); // Insert into thead
+            const th1 = document.createElement('th');
+            th1.className = 'EtiquetaEnc';
+            th1.textContent = 'Parcial 1';
+            headerRow.appendChild(th1);
+
+            const th2 = document.createElement('th');
+            th2.className = 'EtiquetaEnc';
+            th2.textContent = 'Parcial 2';
+            headerRow.appendChild(th2);
+
+            const th3 = document.createElement('th');
+            th3.className = 'EtiquetaEnc';
+            th3.textContent = 'Parcial 3';
+            headerRow.appendChild(th3);
+
+            const thPromedio = document.createElement('th');
+            thPromedio.className = 'EtiquetaEnc';
+            thPromedio.textContent = 'Promedio';
+            headerRow.appendChild(thPromedio);
 
             partialGradesContainer.style.display = 'block';
 

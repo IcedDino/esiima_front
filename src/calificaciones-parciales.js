@@ -25,13 +25,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (data.length === 0) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 5; // Updated colspan to match new headers
+                cell.colSpan = 6;
                 cell.textContent = 'No hay calificaciones para mostrar.';
                 cell.style.textAlign = 'center';
             } else {
                 data.forEach(calificacion => {
                     const row = tableBody.insertRow();
                     row.insertCell().textContent = calificacion.materia.nombre;
+                    row.insertCell().textContent = calificacion.grupo.nombre;
                     row.insertCell().textContent = calificacion.parcial1 || 'N/A';
                     row.insertCell().textContent = calificacion.parcial2 || 'N/A';
                     row.insertCell().textContent = calificacion.parcial3 || 'N/A';

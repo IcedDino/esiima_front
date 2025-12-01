@@ -353,6 +353,30 @@ body.has-sidebar.sidebar-closed .main-header {
     border-left-color: #ffd700;
 }
 
+.btn-link {
+    display: inline-block;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, #004080 0%, #003366 100%);
+    color: white !important;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-link:hover {
+    background: linear-gradient(135deg, #0059b3 0%, #004080 100%);
+    color: #ffd700 !important;
+    transform: translateY(-1px);
+}
+
+.btn-link:focus {
+    outline: 2px solid #ffd700;
+    outline-offset: 2px;
+}
+
 /* Main content area adjustment for sidebar */
 body:has(#subnav:not(.sidebar-closed)) {
     padding-left: 280px;
