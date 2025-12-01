@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                         <td class="Dinforma">${materia.periodo}</td>
                         <td class="Dinforma">${materia.calificacion}</td>
                         <td class="Dinforma">${materia.tipo_examen}</td>
-                        <td class="Dinforma"><a href="#">Calificaciones</a></td>
+                        <td class="Dinforma"><a href="#" class="calificaciones-link" data-materia-id="${materia.id}" data-materia-nombre="${materia.materia}">Calificaciones</a></td>
                         <td class="Dinforma">-</td>
                     </tr>
                 `).join('')}
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 // Add event listener for semester change
                 semestreSelect.addEventListener('change', (event) => {
                     renderKardex(event.target.value);
+                    document.getElementById('partial-grades-container').style.display = 'none'; // Hide partial grades when changing semester
                 });
             }
         } else {
@@ -103,4 +104,58 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('Error al cargar el kardex:', error);
         alert('Ocurrió un error al cargar el kardex.');
     }
+
+    // Handle "Calificaciones" link click
+    document.getElementById('kardex-display-container').addEventListener('click', async function(event) {
+        if (event.target.classList.contains('calificaciones-link')) {
+            event.preventDefault();
+            const materiaId = event.target.dataset.materiaId;
+            const materiaNombre = event.target.dataset.materiaNombre;
+            const partialGradesContainer = document.getElementById('partial-grades-container');
+            const partialGradesTitle = document.getElementById('partial-grades-materia-title');
+            const partialGradesTableBody = document.getElementById('partial-grades-table-body');
+
+            partialGradesTitle.textContent = `Calificaciones Parciales para: ${materiaNombre}`;
+            partialGradesTableBody.innerHTML = ''; // Clear previous content
+            partialGradesContainer.style.display = 'block';
+
+            try {
+                const response = await fetch(`${backendUrl}/calificaciones/parciales/materia/${materiaId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.length === 0) {
+                        const row = partialGradesTableBody.insertRow();
+                        const cell = row.insertCell();
+                        cell.colSpan = 2;
+                        cell.textContent = 'No hay calificaciones parciales para esta materia.';
+                        cell.style.textAlign = 'center';
+                    } else {
+                        data.forEach(grade => {
+                            const row = partialGradesTableBody.insertRow();
+                            row.insertCell().textContent = grade.parcial;
+                            row.insertCell().textContent = grade.calificacion;
+                        });
+                    }
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.detail || 'Error al cargar las calificaciones parciales.');
+                }
+            } catch (error) {
+                console.error('Error al cargar las calificaciones parciales:', error);
+                alert('Ocurrió un error al cargar las calificaciones parciales.');
+            }
+        }
+    });
+
+    // Handle hide partial grades button click
+    document.getElementById('hide-partial-grades').addEventListener('click', function() {
+        document.getElementById('partial-grades-container').style.display = 'none';
+    });
 });

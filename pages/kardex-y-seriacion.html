@@ -25,6 +25,23 @@
   <div id="kardex-display-container">
     <!-- Selected semester's kardex data will be inserted here by JavaScript -->
   </div>
+
+  <div id="partial-grades-container" style="width: 98%; margin-top: 2rem; display: none;">
+    <span class="Titulo" id="partial-grades-materia-title"></span>
+    <table width="100%" border="1" align="center" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="EtiquetaEnc">Parcial</th>
+                <th class="EtiquetaEnc">Calificación</th>
+            </tr>
+        </thead>
+        <tbody id="partial-grades-table-body">
+            <!-- Partial grades will be inserted here -->
+        </tbody>
+    </table>
+    <button id="hide-partial-grades" class="btn btn-secondary" style="margin-top: 1rem;">Ocultar Calificaciones Parciales</button>
+  </div>
+
 </center>
 
 <div id="footer-container"></div>
