@@ -24,13 +24,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (data.length === 0) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 2;
+                cell.colSpan = 3;
                 cell.textContent = 'No hay profesores para evaluar.';
                 cell.style.textAlign = 'center';
             } else {
                 data.forEach(profesor => {
                     const row = tableBody.insertRow();
                     row.insertCell().textContent = profesor.nombre;
+                    row.insertCell().textContent = profesor.materia; // Assuming this property exists
                     
                     const ratingCell = row.insertCell();
                     const ratingContainer = document.createElement('div');
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                                     },
                                     body: JSON.stringify({
                                         profesor_id: profesor.id,
+                                        materia_id: profesor.materia_id, // Assuming you need to send this
                                         calificacion: rating
                                     })
                                 });
@@ -79,6 +81,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                                 }
                             } catch (error) {
                                 console.error('Error al enviar la evaluación:', error);
+
                                 alert('Ocurrió un error al enviar la evaluación.');
                             }
                         }
