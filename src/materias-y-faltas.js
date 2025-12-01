@@ -8,31 +8,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
-    // Fetch student info
-    try {
-        const response = await fetch(`${backendUrl}/users/me`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        if (response.ok) {
-            const user = await response.json();
-            document.getElementById('ciclo-escolar').textContent = user.ciclo_escolar || 'N/A';
-            document.getElementById('nivel-estudios').textContent = user.nivel_estudios || 'N/A';
-            document.getElementById('carrera').textContent = user.carrera || 'N/A';
-            document.getElementById('semestre-grupo').textContent = user.semestre_grupo || 'N/A';
-            document.getElementById('nombre-alumno').textContent = user.nombre || 'N/A';
-            document.getElementById('cursa-actualmente').textContent = user.cursa_actualmente || 'N/A';
-        } else {
-            console.error('Error al cargar la información del alumno.');
-        }
-    } catch (error) {
-        console.error('Error al cargar la información del alumno:', error);
-    }
-
     // Fetch materias y faltas data
     try {
         const response = await fetch(`${backendUrl}/materias/me`, {
