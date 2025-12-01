@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             return;
         }
 
-        const cuatrimestreDiv = document.createElement('div');
+        const cuatrimestreDiv = document.createElement('div'); // Corrected variable name
         cuatrimestreDiv.innerHTML = `<br><span class="Titulo">Kardex del Cuatrimestre ${cuatrimestre}</span>`;
         
         const table = document.createElement('table');
@@ -55,8 +55,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 `).join('')}
             </tbody>
         `;
-        semestreDiv.appendChild(table);
-        kardexDisplayContainer.appendChild(semestreDiv);
+        cuatrimestreDiv.appendChild(table);
+        kardexDisplayContainer.appendChild(cuatrimestreDiv);
     }
 
     // Fetch all kardex data
