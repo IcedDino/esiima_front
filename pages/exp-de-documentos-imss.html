@@ -15,8 +15,55 @@
 <div id="navigation-container"></div>
 
 <center>
-    <span class="Titulo">Exp. De Documentos / IMSS</span>
-    <!-- Add page-specific content here -->
+  <span class="Titulo">Expediente De Documentos</span> 
+
+<table width="98%" border="1" cellspacing="0" cellpadding="0">
+  <tbody><tr> 
+    <td> 
+      <table width="100%" border="1" align="center" cellspacing="0" cellpadding="0">
+        <tbody><tr> 
+          <td class="EtiquetaEnc" width="19%">Ciclo Escolar</td>
+          <td class="Dencabezado" id="ciclo-escolar"></td>
+        </tr>
+        <tr> 
+          <td class="EtiquetaEnc" width="19%">Nivel de Estudios</td>
+          <td class="Dencabezado" id="nivel-estudios"></td>
+        </tr>
+        <tr> 
+          <td class="EtiquetaEnc" width="19%"> Carrera</td>
+          <td class="Dencabezado" id="carrera"></td>
+        </tr>
+        <tr> 
+          <td class="EtiquetaEnc" width="19%">Sem./Año - Grupo</td>
+          <td class="Dencabezado" id="semestre-grupo"></td>
+        </tr>
+        <tr> 
+          <td class="EtiquetaEnc" width="19%">Nombre</td>
+          <td class="Dencabezado" id="nombre-alumno"></td>
+        </tr>
+        <tr> 
+          <td class="EtiquetaEnc" width="19%">Cursa Actualmente</td>
+          <td class="Dencabezado" id="cursa-actualmente"></td>
+        </tr>
+        
+      </tbody></table>
+    </td>
+  </tr>
+</tbody></table>
+
+  <table width="98%" border="1" align="center" cellspacing="0">
+    <thead>
+        <tr> 
+            <th width="8%" class="EtiquetaEnc">Clave Doc.</th>
+            <th width="28%" class="EtiquetaEnc">Nombre</th>
+            <th width="11%" class="EtiquetaEnc">Entregado</th>
+            <th width="11%" class="EtiquetaEnc">Observaciones</th>
+        </tr>
+    </thead>
+    <tbody id="documentos-table-body">
+        <!-- Data will be inserted here by JavaScript -->
+    </tbody>
+  </table>
 </center>
 
 <div id="footer-container"></div>
@@ -25,6 +72,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script type="module" src="/js/app.js"></script>
+<script type="module" src="/src/exp-de-documentos-imss.js"></script>
 
 </body>
 </html>

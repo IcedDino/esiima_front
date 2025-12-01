@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     try {
-        const response = await fetch(`${backendUrl}/calificaciones/me`, {
+        const response = await fetch(`${backendUrl}/inscripciones/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,18 +24,17 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (data.length === 0) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 6;
+                cell.colSpan = 5;
                 cell.textContent = 'No hay calificaciones para mostrar.';
                 cell.style.textAlign = 'center';
             } else {
-                data.forEach(calificacion => {
+                data.forEach(inscripcion => {
                     const row = tableBody.insertRow();
-                    row.insertCell().textContent = calificacion.materia.nombre;
-                    row.insertCell().textContent = calificacion.grupo.nombre;
-                    row.insertCell().textContent = calificacion.parcial1 || 'N/A';
-                    row.insertCell().textContent = calificacion.parcial2 || 'N/A';
-                    row.insertCell().textContent = calificacion.parcial3 || 'N/A';
-                    row.insertCell().textContent = calificacion.promedio || 'N/A';
+                    row.insertCell().textContent = inscripcion.materia.nombre;
+                    row.insertCell().textContent = inscripcion.calificacion_parcial1 || 'N/A';
+                    row.insertCell().textContent = inscripcion.calificacion_parcial2 || 'N/A';
+                    row.insertCell().textContent = inscripcion.calificacion_parcial3 || 'N/A';
+                    row.insertCell().textContent = inscripcion.promedio_final || 'N/A';
                 });
             }
         } else {
