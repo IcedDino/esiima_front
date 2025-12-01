@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
+    // Create a hidden file input
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+
     // Fetch documents
     try {
         const response = await fetch(`${backendUrl}/documentos/me`, {
@@ -25,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (data.length === 0) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 2; // Adjusted colSpan for 2 columns
+                cell.colSpan = 3;
                 cell.textContent = 'No hay documentos para mostrar.';
                 cell.style.textAlign = 'center';
             } else {
@@ -33,6 +39,23 @@ document.addEventListener('DOMContentLoaded', async function() {
                     const row = tableBody.insertRow();
                     row.insertCell().textContent = doc.nombre;
                     row.insertCell().textContent = doc.entregado ? 'SI' : 'NO';
+                    
+                    const actionsCell = row.insertCell();
+                    if (!doc.entregado) {
+                        const uploadButton = document.createElement('button');
+                        uploadButton.textContent = 'Subir';
+                        uploadButton.className = 'btn btn-primary btn-sm';
+                        uploadButton.onclick = () => {
+                            fileInput.onchange = async (e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                    await uploadDocument(doc.id, file);
+                                }
+                            };
+                            fileInput.click();
+                        };
+                        actionsCell.appendChild(uploadButton);
+                    }
                 });
             }
         } else {
@@ -42,5 +65,31 @@ document.addEventListener('DOMContentLoaded', async function() {
     } catch (error) {
         console.error('Error al cargar los documentos:', error);
         alert('Ocurrió un error al cargar los documentos.');
+    }
+
+    async function uploadDocument(docId, file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch(`${backendUrl}/documentos/${docId}/upload`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Documento subido con éxito.');
+                location.reload(); // Refresh the page to show the updated status
+            } else {
+                const errorData = await response.json();
+                alert(errorData.detail || 'Error al subir el documento.');
+            }
+        } catch (error) {
+            console.error('Error al subir el documento:', error);
+            alert('Ocurrió un error al subir el documento.');
+        }
     }
 });
