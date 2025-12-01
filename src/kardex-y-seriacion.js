@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             const materiaId = event.target.dataset.materiaId;
             const materiaNombre = event.target.dataset.materiaNombre;
             const partialGradesContainer = document.getElementById('partial-grades-container');
-            const partialGradesTitle = document.getElementById('partial-grades-materia-title'); // Corrected: Get DOM element
-            const partialGradesTableHead = document.getElementById('partial-grades-table-head'); // Get the thead
+            const partialGradesTitle = document.getElementById('partial-grades-materia-title');
+            const partialGradesTableHead = document.getElementById('partial-grades-table-head');
             const partialGradesTableBody = document.getElementById('partial-grades-table-body');
 
             partialGradesTitle.textContent = `Calificaciones Parciales para: ${materiaNombre}`;
@@ -130,35 +130,34 @@ document.addEventListener('DOMContentLoaded', async function() {
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    // Assuming data is a single object with parcial1, parcial2, parcial3, promedio
-                    if (data) {
+                    const data = await response.json(); // data is now expected to be an array
+                    console.log('Fetched partial grades data:', data); // Log the data for debugging
+
+                    if (data && data.length > 0) {
                         const headerRow = partialGradesTableHead.insertRow();
-                        const partialKeys = Object.keys(data).filter(key => key.startsWith('parcial') || key === 'promedio');
-                        partialKeys.sort((a, b) => {
-                            if (a.startsWith('parcial') && b.startsWith('parcial')) {
-                                return parseInt(a.replace('parcial', '')) - parseInt(b.replace('parcial', ''));
-                            }
-                            if (a === 'promedio') return 1;
-                            if (b === 'promedio') return -1;
-                            return 0;
-                        });
+                        
+                        // Add "Unidad" header
+                        const unidadTh = document.createElement('th');
+                        unidadTh.className = 'EtiquetaEnc';
+                        unidadTh.textContent = 'Unidad';
+                        headerRow.appendChild(unidadTh);
 
-                        partialKeys.forEach(key => {
-                            const th = document.createElement('th');
-                            th.className = 'EtiquetaEnc';
-                            th.textContent = key.replace('parcial', 'Parcial ').replace('promedio', 'Promedio Final');
-                            headerRow.appendChild(th);
-                        });
+                        // Add "Calificación" header
+                        const calificacionTh = document.createElement('th');
+                        calificacionTh.className = 'EtiquetaEnc';
+                        calificacionTh.textContent = 'Calificación';
+                        headerRow.appendChild(calificacionTh);
 
-                        const row = partialGradesTableBody.insertRow();
-                        partialKeys.forEach(key => {
-                            row.insertCell().textContent = data[key] || 'N/A';
+                        // Populate table body with each partial grade
+                        data.forEach(partial => {
+                            const row = partialGradesTableBody.insertRow();
+                            row.insertCell().textContent = partial.unidad || 'N/A';
+                            row.insertCell().textContent = partial.calificacion || 'N/A';
                         });
                     } else {
                         const row = partialGradesTableBody.insertRow();
                         const cell = row.insertCell();
-                        cell.colSpan = 4; // This might need to be dynamic if no partials are found
+                        cell.colSpan = 2; // Span two columns: Unidad, Calificación
                         cell.textContent = 'No hay calificaciones parciales para esta materia.';
                         cell.style.textAlign = 'center';
                     }
