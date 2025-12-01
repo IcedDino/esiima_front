@@ -18,7 +18,7 @@ export default defineConfig({
         "expediente-servicio-social": resolve(__dirname, "pages/expediente-servicio-social.html"),
         "evaluacion-a-profesores": resolve(__dirname, "pages/evaluacion-a-profesores.html"),
         "hor-y-res-de-ex-ext-y-o-ts": resolve(__dirname, "pages/hor-y-res-de-ex-ext-y-o-ts.html"),
-        "exp-de-documentos-imss": resolve(__dirname, "pages/exp-de-documentos-imss.html"),
+        "exp-de-documentos-imss": resolve(__dirname, "pages/exp-de-documentos.html"),
         "expediente-de-practicas-prof": resolve(__dirname, "pages/expediente-de-practicas-prof.html"),
         "datos-personales": resolve(__dirname, "pages/datos-personales.html"),
         "cambiar-contrasena": resolve(__dirname, "pages/cambiar-contrasena.html"),
