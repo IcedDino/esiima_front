@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             const tableHead = document.getElementById('calificaciones-table-head');
             const tableBody = document.getElementById('calificaciones-table-body');
             
+            if (!tableHead || !tableBody) {
+                console.error('Table head or body element not found!');
+                return;
+            }
+
             if (data.length === 0) {
                 const headerRow = tableHead.insertRow();
                 const th = document.createElement('th');
@@ -48,16 +53,19 @@ document.addEventListener('DOMContentLoaded', async function() {
                 grupoTh.textContent = 'Grupo';
                 headerRow.appendChild(grupoTh);
 
-                // Assuming all objects in data have the same structure for partials
-                const partialKeys = Object.keys(data[0]).filter(key => key.startsWith('parcial') || key === 'promedio');
-                partialKeys.sort((a, b) => {
-                    if (a.startsWith('parcial') && b.startsWith('parcial')) {
-                        return parseInt(a.replace('parcial', '')) - parseInt(b.replace('parcial', ''));
-                    }
-                    if (a === 'promedio') return 1; // 'promedio' should come last
-                    if (b === 'promedio') return -1;
-                    return 0;
-                });
+                let partialKeys = [];
+                if (data.length > 0 && typeof data[0] === 'object') {
+                    partialKeys = Object.keys(data[0]).filter(key => key.startsWith('parcial') || key === 'promedio');
+                    partialKeys.sort((a, b) => {
+                        if (a.startsWith('parcial') && b.startsWith('parcial')) {
+                            return parseInt(a.replace('parcial', '')) - parseInt(b.replace('parcial', ''));
+                        }
+                        if (a === 'promedio') return 1; // 'promedio' should come last
+                        if (b === 'promedio') return -1;
+                        return 0;
+                    });
+                }
+
 
                 partialKeys.forEach(key => {
                     const th = document.createElement('th');
@@ -69,8 +77,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 // Populate table body
                 data.forEach(calificacion => {
                     const row = tableBody.insertRow();
-                    row.insertCell().textContent = calificacion.materia.nombre;
-                    row.insertCell().textContent = calificacion.grupo.nombre;
+                    row.insertCell().textContent = calificacion.materia?.nombre || 'N/A';
+                    row.insertCell().textContent = calificacion.grupo?.nombre || 'N/A';
                     partialKeys.forEach(key => {
                         row.insertCell().textContent = calificacion[key] || 'N/A';
                     });
