@@ -20,23 +20,60 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (response.ok) {
             const data = await response.json();
             console.log('Fetched calificaciones data:', data); // Log the data for debugging
+            const tableHead = document.getElementById('calificaciones-table-head');
             const tableBody = document.getElementById('calificaciones-table-body');
             
             if (data.length === 0) {
+                const headerRow = tableHead.insertRow();
+                const th = document.createElement('th');
+                th.className = 'EtiquetaEnc';
+                th.textContent = 'Materia';
+                headerRow.appendChild(th);
+
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 6;
+                cell.colSpan = 1; // Only Materia header
                 cell.textContent = 'No hay calificaciones para mostrar.';
                 cell.style.textAlign = 'center';
             } else {
+                // Dynamically create headers
+                const headerRow = tableHead.insertRow();
+                const materiaTh = document.createElement('th');
+                materiaTh.className = 'EtiquetaEnc';
+                materiaTh.textContent = 'Materia';
+                headerRow.appendChild(materiaTh);
+
+                const grupoTh = document.createElement('th');
+                grupoTh.className = 'EtiquetaEnc';
+                grupoTh.textContent = 'Grupo';
+                headerRow.appendChild(grupoTh);
+
+                // Assuming all objects in data have the same structure for partials
+                const partialKeys = Object.keys(data[0]).filter(key => key.startsWith('parcial') || key === 'promedio');
+                partialKeys.sort((a, b) => {
+                    if (a.startsWith('parcial') && b.startsWith('parcial')) {
+                        return parseInt(a.replace('parcial', '')) - parseInt(b.replace('parcial', ''));
+                    }
+                    if (a === 'promedio') return 1; // 'promedio' should come last
+                    if (b === 'promedio') return -1;
+                    return 0;
+                });
+
+                partialKeys.forEach(key => {
+                    const th = document.createElement('th');
+                    th.className = 'EtiquetaEnc';
+                    th.textContent = key.replace('parcial', 'Parcial ').replace('promedio', 'Promedio Final');
+                    headerRow.appendChild(th);
+                });
+
+                // Populate table body
                 data.forEach(calificacion => {
                     const row = tableBody.insertRow();
                     row.insertCell().textContent = calificacion.materia.nombre;
                     row.insertCell().textContent = calificacion.grupo.nombre;
-                    row.insertCell().textContent = calificacion.parcial1 || 'N/A';
-                    row.insertCell().textContent = calificacion.parcial2 || 'N/A';
-                    row.insertCell().textContent = calificacion.parcial3 || 'N/A';
-                    row.insertCell().textContent = calificacion.promedio || 'N/A';
+                    partialKeys.forEach(key => {
+                        row.insertCell().textContent = calificacion[key] || 'N/A';
+                    });
                 });
             }
         } else {

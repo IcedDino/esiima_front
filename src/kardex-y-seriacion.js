@@ -119,30 +119,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             partialGradesTableHead.innerHTML = ''; // Clear previous headers
             partialGradesTableBody.innerHTML = ''; // Clear previous content
             
-            // Dynamically create headers for partial grades
-            const headerRow = partialGradesTableHead.insertRow(); // Insert into thead
-            const th1 = document.createElement('th');
-            th1.className = 'EtiquetaEnc';
-            th1.textContent = 'Parcial 1';
-            headerRow.appendChild(th1);
-
-            const th2 = document.createElement('th');
-            th2.className = 'EtiquetaEnc';
-            th2.textContent = 'Parcial 2';
-            headerRow.appendChild(th2);
-
-            const th3 = document.createElement('th');
-            th3.className = 'EtiquetaEnc';
-            th3.textContent = 'Parcial 3';
-            headerRow.appendChild(th3);
-
-            const thPromedio = document.createElement('th');
-            thPromedio.className = 'EtiquetaEnc';
-            thPromedio.textContent = 'Promedio';
-            headerRow.appendChild(thPromedio);
-
-            partialGradesContainer.style.display = 'block';
-
             try {
                 const response = await fetch(`${backendUrl}/calificaciones/parciales/materia/${materiaId}`, {
                     method: 'GET',
@@ -156,15 +132,32 @@ document.addEventListener('DOMContentLoaded', async function() {
                     const data = await response.json();
                     // Assuming data is a single object with parcial1, parcial2, parcial3, promedio
                     if (data) {
+                        const headerRow = partialGradesTableHead.insertRow();
+                        const partialKeys = Object.keys(data).filter(key => key.startsWith('parcial') || key === 'promedio');
+                        partialKeys.sort((a, b) => {
+                            if (a.startsWith('parcial') && b.startsWith('parcial')) {
+                                return parseInt(a.replace('parcial', '')) - parseInt(b.replace('parcial', ''));
+                            }
+                            if (a === 'promedio') return 1;
+                            if (b === 'promedio') return -1;
+                            return 0;
+                        });
+
+                        partialKeys.forEach(key => {
+                            const th = document.createElement('th');
+                            th.className = 'EtiquetaEnc';
+                            th.textContent = key.replace('parcial', 'Parcial ').replace('promedio', 'Promedio Final');
+                            headerRow.appendChild(th);
+                        });
+
                         const row = partialGradesTableBody.insertRow();
-                        row.insertCell().textContent = data.parcial1 || 'N/A';
-                        row.insertCell().textContent = data.parcial2 || 'N/A';
-                        row.insertCell().textContent = data.parcial3 || 'N/A';
-                        row.insertCell().textContent = data.promedio || 'N/A';
+                        partialKeys.forEach(key => {
+                            row.insertCell().textContent = data[key] || 'N/A';
+                        });
                     } else {
                         const row = partialGradesTableBody.insertRow();
                         const cell = row.insertCell();
-                        cell.colSpan = 4;
+                        cell.colSpan = 4; // This might need to be dynamic if no partials are found
                         cell.textContent = 'No hay calificaciones parciales para esta materia.';
                         cell.style.textAlign = 'center';
                     }
@@ -176,6 +169,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 console.error('Error al cargar las calificaciones parciales:', error);
                 alert('Ocurrió un error al cargar las calificaciones parciales.');
             }
+            partialGradesContainer.style.display = 'block'; // Show container after data is loaded
         }
     });
 
