@@ -24,14 +24,13 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (data.length === 0) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 6;
+                cell.colSpan = 5;
                 cell.textContent = 'No hay calificaciones para mostrar.';
                 cell.style.textAlign = 'center';
             } else {
                 data.forEach(calificacion => {
                     const row = tableBody.insertRow();
                     row.insertCell().textContent = calificacion.materia.nombre || 'N/A';
-                    row.insertCell().textContent = calificacion.materia.faltas_permitidas || 'N/A';
                     row.insertCell().textContent = calificacion.calificacion_parcial1 || 'N/A';
                     row.insertCell().textContent = calificacion.calificacion_parcial2 || 'N/A';
                     row.insertCell().textContent = calificacion.calificacion_parcial3 || 'N/A';
