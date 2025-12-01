@@ -488,6 +488,17 @@ table[align="center"] {
     margin-right: auto;
 }
 
+/* Kardex-specific tables - ensure consistent width with other tables */
+#kardex-display-container .table {
+    width: 95% !important;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
 table td[align="center"],
 table th[align="center"] {
     text-align: center;
