@@ -32,9 +32,16 @@ body.has-header {
     padding: 0;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 280px;
     right: 0;
-    z-index: 1001;
+    z-index: 999;
+    width: calc(100% - 280px);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body:has(#subnav.sidebar-closed) .main-header,
+body.has-sidebar.sidebar-closed .main-header {
+    left: 0;
     width: 100%;
 }
 
@@ -174,14 +181,14 @@ body.has-header {
 #subnav {
     position: fixed;
     left: 0;
-    top: 110px;
+    top: 0;
     width: 280px;
-    height: calc(100vh - 110px);
+    height: 100vh;
     background: linear-gradient(180deg, #004080 0%, #003366 50%, #002244 100%);
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 999;
+    z-index: 1001;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-right: 3px solid #ffd700;
 }
@@ -219,6 +226,8 @@ body.has-header {
     top: 0;
     z-index: 10;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    min-height: 110px;
+    margin-top: 0;
 }
 
 .sidebar-header h3 {
@@ -355,32 +364,112 @@ body.has-sidebar.sidebar-closed {
 }
 
 /* ===== TABLE STYLES ===== */
-.EtiquetaEnc {
+/* Base table styles - consistent across all tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table[width="98%"],
+table[width="100%"] {
+    max-width: 1200px;
+    width: 95%;
+}
+
+table[border="1"] {
+    border: 1px solid #e0e4e8;
+}
+
+table[cellspacing="0"] {
+    border-spacing: 0;
+}
+
+/* Table header cells - consistent styling */
+.EtiquetaEnc,
+table th.EtiquetaEnc,
+table td.EtiquetaEnc,
+table thead th,
+table thead td {
     background: linear-gradient(135deg, #004080 0%, #003366 100%);
     color: white;
     font-weight: 600;
     padding: 14px 16px;
     border: 1px solid #002244;
     text-align: left;
+    font-size: 0.95em;
+    letter-spacing: 0.3px;
 }
 
-.Dinforma {
+table th.EtiquetaEnc[align="center"],
+table td.EtiquetaEnc[align="center"] {
+    text-align: center;
+}
+
+/* Data cells - consistent styling */
+.Dinforma,
+table tbody td:not(.EtiquetaEnc):not(.Dencabezado) {
     background-color: #ffffff;
     padding: 12px 16px;
     border: 1px solid #e0e4e8;
     transition: background-color 0.2s ease;
+    color: #2c3e50;
+    font-size: 0.95em;
 }
 
-.Dinforma:hover {
+.Dinforma:hover,
+table tbody tr:hover td:not(.EtiquetaEnc):not(.Dencabezado) {
     background-color: #f8f9fa;
 }
 
-.Dencabezado {
+/* Header/Info cells - consistent styling */
+.Dencabezado,
+table td.Dencabezado {
     background-color: #f8f9fa;
     padding: 12px 16px;
     font-weight: 500;
     border: 1px solid #e0e4e8;
     color: #2c3e50;
+    font-size: 0.95em;
+}
+
+/* Alternating row colors for better readability */
+table tbody tr:nth-child(even) td:not(.EtiquetaEnc):not(.Dencabezado) {
+    background-color: #ffffff;
+}
+
+table tbody tr:nth-child(odd) td:not(.EtiquetaEnc):not(.Dencabezado) {
+    background-color: #fafbfc;
+}
+
+table tbody tr:nth-child(even):hover td:not(.EtiquetaEnc):not(.Dencabezado),
+table tbody tr:nth-child(odd):hover td:not(.EtiquetaEnc):not(.Dencabezado) {
+    background-color: #f0f4f8;
+}
+
+/* Table alignment */
+table[align="center"] {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table td[align="center"],
+table th[align="center"] {
+    text-align: center;
+}
+
+table td[align="left"],
+table th[align="left"] {
+    text-align: left;
+}
+
+table td[align="right"],
+table th[align="right"] {
+    text-align: right;
 }
 
 /* Title */
@@ -398,30 +487,89 @@ body.has-sidebar.sidebar-closed {
     margin-top: 30px;
 }
 
-/* Tables */
-table[width="98%"][border="1"] {
-    width: 95%;
-    max-width: 1200px;
-    border-collapse: collapse;
-    border: 1px solid #e0e4e8;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    background-color: white;
-    margin: 20px auto;
-    border-radius: 8px;
-    overflow: hidden;
+/* Nested tables - consistent styling */
+table table {
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
 }
 
-table[width="98%"][border="1"] td {
-    border: 1px solid #e0e4e8;
+table table .EtiquetaEnc,
+table table th.EtiquetaEnc,
+table table td.EtiquetaEnc {
+    padding: 12px 14px;
+    font-size: 0.9em;
 }
 
-table[width="98%"][border="1"] tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
+table table .Dinforma,
+table table .Dencabezado,
+table table td:not(.EtiquetaEnc) {
+    padding: 10px 14px;
+    font-size: 0.9em;
 }
 
-table[width="98%"][border="1"] tbody tr:hover {
-    background-color: #f0f4f8;
-    transition: background-color 0.2s ease;
+/* Table spacing - consistent margins */
+table {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+table:first-of-type {
+    margin-top: 1rem;
+}
+
+/* Remove inline style dependencies */
+table[style*="margin-top"] {
+    margin-top: 1rem !important;
+}
+
+/* Responsive table styles */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9em;
+        margin: 15px auto;
+    }
+    
+    .EtiquetaEnc,
+    table th.EtiquetaEnc,
+    table td.EtiquetaEnc,
+    table thead th,
+    table thead td {
+        padding: 10px 12px;
+        font-size: 0.85em;
+    }
+    
+    .Dinforma,
+    .Dencabezado,
+    table tbody td:not(.EtiquetaEnc):not(.Dencabezado) {
+        padding: 10px 12px;
+        font-size: 0.85em;
+    }
+    
+    table[width="98%"],
+    table[width="100%"] {
+        width: 98%;
+    }
+}
+
+@media (max-width: 480px) {
+    table {
+        font-size: 0.8em;
+    }
+    
+    .EtiquetaEnc,
+    table th.EtiquetaEnc,
+    table td.EtiquetaEnc {
+        padding: 8px 10px;
+        font-size: 0.8em;
+    }
+    
+    .Dinforma,
+    .Dencabezado,
+    table tbody td {
+        padding: 8px 10px;
+        font-size: 0.8em;
+    }
 }
 
 /* ===== BUTTON STYLES ===== */
@@ -617,9 +765,24 @@ a:focus {
     }
 
     #subnav {
-        top: 100px;
-        height: calc(100vh - 100px);
+        top: 0;
+        height: 100vh;
         width: 260px;
+    }
+    
+    .sidebar-header {
+        min-height: 100px;
+    }
+    
+    .main-header {
+        left: 260px;
+        width: calc(100% - 260px);
+    }
+    
+    body:has(#subnav.sidebar-closed) .main-header,
+    body.has-sidebar.sidebar-closed .main-header {
+        left: 0;
+        width: 100%;
     }
     
     body:has(#subnav:not(.sidebar-closed)),
@@ -670,8 +833,17 @@ a:focus {
     }
 
     #subnav {
-        top: 95px;
-        height: calc(100vh - 95px);
+        top: 0;
+        height: 100vh;
+    }
+    
+    .sidebar-header {
+        min-height: 95px;
+    }
+    
+    .main-header {
+        left: 0;
+        width: 100%;
     }
     
     body {

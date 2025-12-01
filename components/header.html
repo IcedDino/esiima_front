@@ -4,15 +4,35 @@
             <img src="/1_20-Logo-completo-300x300.png" alt="Universidad ICI Logo">
         </div>
         <nav id="topnav" class="top-navigation">
-            <div class="nav-item n selected" data-section="control-escolar">
-                <a href="xweinscri.jsp?app=1.1.8">Control Escolar</a>
-            </div>
-            <div class="nav-item n" data-section="cajas">
-                <a href="xwfpaad.jsp?app=1.2.1">Cajas</a>
-            </div>
-            <div class="nav-item n logout-item">
-                <a href="xwgkses.jsp">Salir</a>
-            </div>
+            <ul class="menu-list">
+                <li class="nav-item n selected" data-section="control-escolar">
+                    <a href="/pages/situacion-actual.html">Control Escolar</a>
+                </li>
+                <li class="nav-item n" data-section="cajas">
+                    <a href="/pages/cajas.html">Cajas</a>
+                </li>
+                <li class="nav-item n" data-section="formacion-integral">
+                    <a href="#">Formación<br>Integral</a>
+                </li>
+                <li class="nav-item n" data-section="instrumentos-evaluacion">
+                    <a href="#">Instrumentos<br>de Evaluación</a>
+                </li>
+                <li class="nav-item n logout-item">
+                    <a href="xwgkses.jsp">Salir</a>
+                </li>
+            </ul>
         </nav>
     </div>
 </header>
+<script>
+    window.addEventListener('load', function() {
+        var tabs = document.querySelectorAll('#topnav .n');
+        var maxWidth = 0;
+        tabs.forEach(function(tab) {
+            if (tab.offsetWidth > maxWidth) maxWidth = tab.offsetWidth;
+        });
+        tabs.forEach(function(tab) {
+            tab.style.width = maxWidth + 'px';
+        });
+    });
+</script>

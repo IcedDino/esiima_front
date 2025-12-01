@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cajas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/main_md.css">
+    <link rel="stylesheet" type="text/css" href="/css/uaa_md.css">
+</head>
+
+<body>
+
+<div id="header-container"></div>
+<div id="navigation-container"></div>
+
+<center>
+  <span class="Titulo">Estado Control de Colegiatura</span> 
+
+  <table width="98%" border="1" align="center" cellspacing="0" style="margin-top: 1rem;">
+    <thead>
+        <tr> 
+            <th class="EtiquetaEnc">Estado</th>
+            <th class="EtiquetaEnc">Ciclo</th>
+            <th class="EtiquetaEnc">Cargo</th>
+            <th class="EtiquetaEnc">Abono</th>
+            <th class="EtiquetaEnc">Saldo</th>
+            <th class="EtiquetaEnc">Detalles</th>
+        </tr>
+    </thead>
+    <tbody id="pagos-table-body">
+        <!-- Payment data will be inserted here by JavaScript -->
+    </tbody>
+  </table>
+
+  <button id="generar-recibo-btn" class="btn btn-primary" style="margin-top: 1rem;">Generar Recibo de Pago</button>
+</center>
+
+<div id="footer-container"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script type="module" src="/js/app.js"></script>
+<script type="module" src="/src/cajas.js"></script>
+
+</body>
+</html>
