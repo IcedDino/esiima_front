@@ -24,6 +24,10 @@ export default defineConfig({
         "cambiar-contrasena": resolve(__dirname, "pages/cambiar-contrasena.html"),
         "cambiar-clave-de-verificacion": resolve(__dirname, "pages/cambiar-clave-de-verificacion.html"),
         cajas: resolve(__dirname, "pages/cajas.html"),
+        // New enrollment and teacher pages
+        "enroll-personal-data": resolve(__dirname, "pages/enroll/personal-data.html"),
+        "teacher-asistencia": resolve(__dirname, "pages/teacher/asistencia.html"),
+        "teacher-calificaciones": resolve(__dirname, "pages/teacher/calificaciones.html"),
       },
     },
   },
