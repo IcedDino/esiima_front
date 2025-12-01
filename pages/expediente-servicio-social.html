@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expediente Servicio Social</title>
+    <title>Expediente de Servicio Social</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/main_md.css">
     <link rel="stylesheet" type="text/css" href="/css/uaa_md.css">
 </head>
-
 <body>
 
 <div id="header-container"></div>
 <div id="navigation-container"></div>
 
 <center>
-    <span class="Titulo">Expediente Servicio Social</span>
-    <!-- Add page-specific content here -->
+  <span class="Titulo">Expediente de Servicio Social</span>
+
+  <table width="98%" border="1" align="center" cellspacing="0">
+    <thead>
+        <tr>
+            <th class="EtiquetaEnc">Institución</th>
+            <th class="EtiquetaEnc">Dependencia</th>
+            <th class="EtiquetaEnc">Programa</th>
+            <th class="EtiquetaEnc">Horas Requeridas</th>
+            <th class="EtiquetaEnc">Horas Cumplidas</th>
+            <th class="EtiquetaEnc">Fecha Inicio</th>
+            <th class="EtiquetaEnc">Fecha Fin</th>
+            <th class="EtiquetaEnc">Estatus</th>
+            <th class="EtiquetaEnc">Documentos</th>
+        </tr>
+    </thead>
+    <tbody id="servicio-social-table-body">
+        <!-- Data will be inserted here by JavaScript -->
+    </tbody>
+  </table>
 </center>
 
 <div id="footer-container"></div>
@@ -25,6 +42,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script type="module" src="/js/app.js"></script>
+<script type="module" src="/src/expediente-servicio.js"></script>
 
 </body>
 </html>
