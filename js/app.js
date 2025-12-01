@@ -1,5 +1,7 @@
 import headerHtml from '/components/header.html?raw';
-import navigationHtml from '/components/navigation.html?raw';
+import studentNavigationHtml from '/components/navigation.html?raw';
+import teacherNavigationHtml from '/components/navigation-teacher.html?raw';
+import adminNavigationHtml from '/components/navigation-admin.html?raw';
 import footerHtml from '/components/footer.html?raw';
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -9,42 +11,24 @@ document.addEventListener("DOMContentLoaded", function() {
     
     if (headerContainer) {
         headerContainer.innerHTML = headerHtml;
-        // Add class to body when header is present
         document.body.classList.add('has-header');
-
-        // Highlight active top navigation item based on current page
-        const currentPath = window.location.pathname;
-        let activePage = 'control-escolar';
-
-        if (currentPath.includes('cajas')) {
-            activePage = 'cajas';
-        } else if (currentPath.includes('situacion-actual')) {
-            activePage = 'control-escolar';
-        }
-
-        const navItems = document.querySelectorAll('#topnav .nav-item');
-        navItems.forEach(item => item.classList.remove('selected'));
-
-        const activeLink = document.querySelector(`#topnav a[data-page="${activePage}"]`);
-        if (activeLink && activeLink.parentElement.classList.contains('nav-item')) {
-            activeLink.parentElement.classList.add('selected');
-        }
-
-        // Set header username from localStorage if available
-        const headerUsername = document.getElementById('header-username');
-        if (headerUsername) {
-            const storedName = localStorage.getItem('studentName');
-            if (storedName && storedName.trim().length > 0) {
-                headerUsername.textContent = storedName;
-            }
-        }
     }
+
     if (navigationContainer) {
-        navigationContainer.innerHTML = navigationHtml;
-        // Add class to body when sidebar is present
+        const userRole = localStorage.getItem('userRole'); // Assumes 'admin', 'teacher', or 'student'
+        if (userRole === 'admin') {
+            navigationContainer.innerHTML = adminNavigationHtml;
+        } else if (userRole === 'teacher') {
+            navigationContainer.innerHTML = teacherNavigationHtml;
+        } else {
+            navigationContainer.innerHTML = studentNavigationHtml;
+        }
         document.body.classList.add('has-sidebar');
     }
-    if (footerContainer) footerContainer.innerHTML = footerHtml;
+
+    if (footerContainer) {
+        footerContainer.innerHTML = footerHtml;
+    }
     
     // Sidebar close functionality
     const sidebarClose = document.querySelector('.sidebar-close');
@@ -59,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Add toggle button in header for mobile (when sidebar is closed)
     if (sidebar) {
-        // Create a toggle button that appears when sidebar is closed
         const createToggleButton = () => {
             let toggleBtn = document.querySelector('.sidebar-open-btn');
             if (!toggleBtn) {
@@ -83,14 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     display: none;
                     transition: all 0.3s ease;
                 `;
-                toggleBtn.addEventListener('mouseenter', () => {
-                    toggleBtn.style.transform = 'scale(1.1)';
-                    toggleBtn.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.4)';
-                });
-                toggleBtn.addEventListener('mouseleave', () => {
-                    toggleBtn.style.transform = 'scale(1)';
-                    toggleBtn.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
-                });
                 toggleBtn.addEventListener('click', () => {
                     sidebar.classList.remove('sidebar-closed');
                     document.body.classList.remove('sidebar-closed');
@@ -98,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.body.appendChild(toggleBtn);
             }
             
-            // Show/hide toggle button based on sidebar state
             if (sidebar.classList.contains('sidebar-closed')) {
                 toggleBtn.style.display = 'block';
             } else {
@@ -106,10 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         };
         
-        // Check sidebar state on load and when it changes
-        const observer = new MutationObserver(() => {
-            createToggleButton();
-        });
+        const observer = new MutationObserver(createToggleButton);
         observer.observe(sidebar, { attributes: true, attributeFilter: ['class'] });
         createToggleButton();
     }

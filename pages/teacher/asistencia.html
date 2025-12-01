@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/main_md.css">
+    <link rel="stylesheet" type="text/css" href="/css/uaa_md.css">
+    <!-- I might add a calendar library CSS here later if needed -->
+</head>
+<body>
+
+<div id="header-container"></div>
+<div id="navigation-container"></div>
+
+<center>
+    <span class="Titulo">Asistencia</span>
+
+    <!-- Container for the list of groups -->
+    <div id="groups-container" class="container mt-4">
+        <h3>Mis Grupos Activos</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Materia</th>
+                    <th>Grupo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="groups-table-body">
+                <!-- Groups will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Container for the calendar (initially hidden) -->
+    <div id="calendar-container" class="container mt-4" style="display: none;">
+        <h3 id="calendar-title">Calendario de Asistencia</h3>
+        <div id="calendar">
+            <!-- A calendar will be generated here -->
+        </div>
+    </div>
+
+    <!-- Container for the student attendance table (initially hidden) -->
+    <div id="attendance-container" class="container mt-4" style="display: none;">
+        <h3 id="attendance-title">Registrar Asistencia</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Nombre del Alumno</th>
+                    <th>Presente</th>
+                    <th>Ausente</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-table-body">
+                <!-- Student list will be loaded here -->
+            </tbody>
+        </table>
+        <button id="save-attendance-btn" class="btn btn-primary mt-3">Guardar Asistencia</button>
+        <button id="back-to-calendar-btn" class="btn btn-secondary mt-3">Volver al Calendario</button>
+    </div>
+
+</center>
+
+<div id="footer-container"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script type="module" src="/js/app.js"></script>
+<script type="module" src="/src/teacher/asistencia.js"></script>
+<!-- I might add a calendar library JS here later if needed -->
+
+</body>
+</html>
