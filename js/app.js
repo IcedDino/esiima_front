@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (navigationContainer) {
-        const userRole = localStorage.getItem('userRole'); // Assumes 'admin', 'teacher', or 'student'
+        const userRole = localStorage.getItem('userRole'); // Assumes 'admin', 'Docente', or 'student'
         if (userRole === 'admin') {
             navigationContainer.innerHTML = adminNavigationHtml;
-        } else if (userRole === 'teacher') {
+        } else if (userRole === 'Docente') {
             navigationContainer.innerHTML = teacherNavigationHtml;
         } else {
             navigationContainer.innerHTML = studentNavigationHtml;
