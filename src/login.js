@@ -21,6 +21,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
             const data = await response.json();
             if (data.access_token) {
                 localStorage.setItem('accessToken', data.access_token);
+                localStorage.setItem('userName', data.user_name); // Store the user's name
                 
                 // Store role in localStorage (convert backend role to frontend format)
                 // Backend returns "teacher" or "student", frontend expects "Docente" or "student"
