@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         return;
     }
 
+    //Random line to force deploy
+
     // Fetch student info
     try {
         const response = await fetch(`${backendUrl}/users/me`, {
