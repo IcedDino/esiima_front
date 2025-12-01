@@ -21,7 +21,22 @@ document.getElementById('login-form').addEventListener('submit', async function(
             const data = await response.json();
             if (data.access_token) {
                 localStorage.setItem('accessToken', data.access_token);
-                window.location.href = '/pages/situacion-actual.html';
+                
+                // Store role in localStorage (convert backend role to frontend format)
+                // Backend returns "teacher" or "student", frontend expects "Docente" or "student"
+                if (data.role === 'teacher') {
+                    localStorage.setItem('userRole', 'Docente');
+                    // Redirect teachers to their first available page
+                    window.location.href = '/pages/teacher/asistencia.html';
+                } else if (data.role === 'student') {
+                    localStorage.setItem('userRole', 'student');
+                    // Redirect students to their page
+                    window.location.href = '/pages/situacion-actual.html';
+                } else {
+                    // Unknown role, default to student page
+                    localStorage.setItem('userRole', data.role || 'student');
+                    window.location.href = '/pages/situacion-actual.html';
+                }
             } else {
                 alert("Login successful but no token received.");
             }

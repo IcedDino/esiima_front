@@ -1,9 +1,21 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const backendUrl = import.meta.env.VITE_API_BASE_URL;
     const token = localStorage.getItem('accessToken');
+    const userRole = localStorage.getItem('userRole');
 
     if (!token) {
         window.location.href = '/index.html';
+        return;
+    }
+
+    // Only fetch student data if user is a student
+    if (userRole !== 'student' && userRole !== null) {
+        // User is not a student, redirect to appropriate page
+        if (userRole === 'Docente') {
+            window.location.href = '/pages/teacher/asistencia.html';
+        } else {
+            window.location.href = '/index.html';
+        }
         return;
     }
 
@@ -20,6 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             // Token is invalid or expired
             localStorage.removeItem('accessToken');
+            localStorage.removeItem('userRole');
             window.location.href = '/index.html';
         }
     } catch (error) {
