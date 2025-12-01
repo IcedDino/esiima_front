@@ -15,8 +15,55 @@
 <div id="navigation-container"></div>
 
 <center>
-    <span class="Titulo">Hor. y Res. de Ex. Ext. y/o T.S.</span>
-    <!-- Add page-specific content here -->
+  <span class="Titulo">Calificaciones de Exámenes Extraordinarios<br>y a Título de Suficiencia</span> 
+
+  <table width="98%" border="1" cellspacing="0" cellpadding="0">
+    <tbody><tr> 
+      <td> 
+        <table width="100%" border="1" align="center" cellspacing="0" cellpadding="0">
+          <tbody><tr> 
+            <td class="EtiquetaEnc" width="19%">Ciclo Escolar</td>
+            <td class="Dencabezado" id="ciclo-escolar"></td>
+          </tr>
+          <tr> 
+            <td class="EtiquetaEnc" width="19%">Nivel de Estudios</td>
+            <td class="Dencabezado" id="nivel-estudios"></td>
+          </tr>
+          <tr> 
+            <td class="EtiquetaEnc" width="19%"> Carrera</td>
+            <td class="Dencabezado" id="carrera"></td>
+          </tr>
+          <tr> 
+            <td class="EtiquetaEnc" width="19%">Sem./Año - Grupo</td>
+            <td class="Dencabezado" id="semestre-grupo"></td>
+          </tr>
+          <tr> 
+            <td class="EtiquetaEnc" width="19%">Nombre</td>
+            <td class="Dencabezado" id="nombre-alumno"></td>
+          </tr>
+          <tr> 
+            <td class="EtiquetaEnc" width="19%">Cursa Actualmente</td>
+            <td class="Dencabezado" id="cursa-actualmente"></td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+
+  <table width="98%" border="1" align="center" cellspacing="0">
+    <thead>
+        <tr> 
+            <th class="EtiquetaEnc">Nombre Materia</th>
+            <th class="EtiquetaEnc">Sem. / Año</th>
+            <th class="EtiquetaEnc">Calif.</th>
+            <th class="EtiquetaEnc">Maestro Asignado</th>
+            <th class="EtiquetaEnc">Lugar, Fecha, Hora de Aplicación</th>
+        </tr>
+    </thead>
+    <tbody id="examenes-table-body">
+        <!-- Data will be inserted here by JavaScript -->
+    </tbody>
+  </table>
 </center>
 
 <div id="footer-container"></div>
@@ -25,6 +72,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script type="module" src="/js/app.js"></script>
+<script type="module" src="/src/hor-y-res-de-ex-ext-y-o-ts.js"></script>
 
 </body>
 </html>
