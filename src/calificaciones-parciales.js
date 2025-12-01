@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     try {
-        const response = await fetch(`${backendUrl}/inscripciones/me`, {
+        const response = await fetch(`${backendUrl}/calificaciones/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,22 +19,23 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         if (response.ok) {
             const data = await response.json();
+            console.log('Fetched calificaciones data:', data); // Log the data for debugging
             const tableBody = document.getElementById('calificaciones-table-body');
             
             if (data.length === 0) {
                 const row = tableBody.insertRow();
                 const cell = row.insertCell();
-                cell.colSpan = 5;
+                cell.colSpan = 5; // Updated colspan to match new headers
                 cell.textContent = 'No hay calificaciones para mostrar.';
                 cell.style.textAlign = 'center';
             } else {
-                data.forEach(inscripcion => {
+                data.forEach(calificacion => {
                     const row = tableBody.insertRow();
-                    row.insertCell().textContent = inscripcion.materia.nombre;
-                    row.insertCell().textContent = inscripcion.calificacion_parcial1 || 'N/A';
-                    row.insertCell().textContent = inscripcion.calificacion_parcial2 || 'N/A';
-                    row.insertCell().textContent = inscripcion.calificacion_parcial3 || 'N/A';
-                    row.insertCell().textContent = inscripcion.promedio_final || 'N/A';
+                    row.insertCell().textContent = calificacion.materia.nombre;
+                    row.insertCell().textContent = calificacion.parcial1 || 'N/A';
+                    row.insertCell().textContent = calificacion.parcial2 || 'N/A';
+                    row.insertCell().textContent = calificacion.parcial3 || 'N/A';
+                    row.insertCell().textContent = calificacion.promedio || 'N/A';
                 });
             }
         } else {

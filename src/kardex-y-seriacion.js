@@ -10,18 +10,18 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     let allKardexData = {}; // Store all kardex data
 
-    // Function to render kardex for a specific semester
-    function renderKardex(semestre) {
+    // Function to render kardex for a specific cuatrimestre
+    function renderKardex(cuatrimestre) {
         const kardexDisplayContainer = document.getElementById('kardex-display-container');
         kardexDisplayContainer.innerHTML = ''; // Clear previous content
 
-        if (!allKardexData[semestre] || allKardexData[semestre].length === 0) {
-            kardexDisplayContainer.innerHTML = `<p>No hay datos de kardex para el Semestre ${semestre}.</p>`;
+        if (!allKardexData[cuatrimestre] || allKardexData[cuatrimestre].length === 0) {
+            kardexDisplayContainer.innerHTML = `<p>No hay datos de kardex para el Cuatrimestre ${cuatrimestre}.</p>`;
             return;
         }
 
-        const semestreDiv = document.createElement('div');
-        semestreDiv.innerHTML = `<br><span class="Titulo">Kardex del Semestre ${semestre}</span>`;
+        const cuatrimestreDiv = document.createElement('div');
+        cuatrimestreDiv.innerHTML = `<br><span class="Titulo">Kardex del Cuatrimestre ${cuatrimestre}</span>`;
         
         const table = document.createElement('table');
         table.className = 'table table-bordered';
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 </tr>
             </thead>
             <tbody>
-                ${allKardexData[semestre].map(materia => `
+                ${allKardexData[cuatrimestre].map(materia => `
                     <tr>
                         <td class="Dinforma">${materia.clave}</td>
                         <td class="Dinforma">${materia.materia}</td>
@@ -71,29 +71,29 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         if (response.ok) {
             allKardexData = await response.json();
-            const semestreSelect = document.getElementById('semestre-select');
+            const cuatrimestreSelect = document.getElementById('semestre-select');
             
             if (Object.keys(allKardexData).length === 0) {
-                semestreSelect.innerHTML = '<option value="">No hay semestres disponibles</option>';
+                cuatrimestreSelect.innerHTML = '<option value="">No hay cuatrimestres disponibles</option>';
                 document.getElementById('kardex-display-container').innerHTML = '<p>No hay datos de kardex para mostrar.</p>';
             } else {
-                // Populate semester select options
-                Object.keys(allKardexData).sort((a, b) => parseInt(a) - parseInt(b)).forEach(semestre => {
+                // Populate cuatrimestre select options
+                Object.keys(allKardexData).sort((a, b) => parseInt(a) - parseInt(b)).forEach(cuatrimestre => {
                     const option = document.createElement('option');
-                    option.value = semestre;
-                    option.textContent = `Semestre ${semestre}`;
-                    semestreSelect.appendChild(option);
+                    option.value = cuatrimestre;
+                    option.textContent = `Cuatrimestre ${cuatrimestre}`;
+                    cuatrimestreSelect.appendChild(option);
                 });
 
-                // Set initial display to the first semester
-                if (semestreSelect.options.length > 0) {
-                    renderKardex(semestreSelect.value);
+                // Set initial display to the first cuatrimestre
+                if (cuatrimestreSelect.options.length > 0) {
+                    renderKardex(cuatrimestreSelect.value);
                 }
 
-                // Add event listener for semester change
-                semestreSelect.addEventListener('change', (event) => {
+                // Add event listener for cuatrimestre change
+                cuatrimestreSelect.addEventListener('change', (event) => {
                     renderKardex(event.target.value);
-                    document.getElementById('partial-grades-container').style.display = 'none'; // Hide partial grades when changing semester
+                    document.getElementById('partial-grades-container').style.display = 'none'; // Hide partial grades when changing cuatrimestre
                 });
             }
         } else {
@@ -117,6 +117,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             partialGradesTitle.textContent = `Calificaciones Parciales para: ${materiaNombre}`;
             partialGradesTableBody.innerHTML = ''; // Clear previous content
+            
+            // Update table header for partial grades
+            partialGradesTableBody.innerHTML = `
+                <tr>
+                    <th class="EtiquetaEnc">Parcial 1</th>
+                    <th class="EtiquetaEnc">Parcial 2</th>
+                    <th class="EtiquetaEnc">Parcial 3</th>
+                    <th class="EtiquetaEnc">Promedio</th>
+                </tr>
+            `;
+
             partialGradesContainer.style.display = 'block';
 
             try {
@@ -130,18 +141,19 @@ document.addEventListener('DOMContentLoaded', async function() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.length === 0) {
+                    // Assuming data is a single object with parcial1, parcial2, parcial3, promedio
+                    if (data) {
+                        const row = partialGradesTableBody.insertRow();
+                        row.insertCell().textContent = data.parcial1 || 'N/A';
+                        row.insertCell().textContent = data.parcial2 || 'N/A';
+                        row.insertCell().textContent = data.parcial3 || 'N/A';
+                        row.insertCell().textContent = data.promedio || 'N/A';
+                    } else {
                         const row = partialGradesTableBody.insertRow();
                         const cell = row.insertCell();
-                        cell.colSpan = 2;
+                        cell.colSpan = 4;
                         cell.textContent = 'No hay calificaciones parciales para esta materia.';
                         cell.style.textAlign = 'center';
-                    } else {
-                        data.forEach(grade => {
-                            const row = partialGradesTableBody.insertRow();
-                            row.insertCell().textContent = grade.parcial;
-                            row.insertCell().textContent = grade.calificacion;
-                        });
                     }
                 } else {
                     const errorData = await response.json();
