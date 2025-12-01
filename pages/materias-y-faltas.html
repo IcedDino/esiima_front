@@ -50,7 +50,7 @@
     </tr>
   </tbody></table>
 
-  <table width="98%" border="1" align="center" cellspacing="0">
+  <table width="98%" border="1" align="center" cellspacing="0" style="margin-top: 1rem;">
     <thead>
         <tr>
             <th class="EtiquetaEnc">Horas / Semana</th>
@@ -62,13 +62,27 @@
             <th class="EtiquetaEnc">Hrs. Teo.</th>
             <th class="EtiquetaEnc">Hrs. Pra.</th>
             <th class="EtiquetaEnc">Detalle</th>
-            <th class="EtiquetaEnc">Cronog.</th>
         </tr>
     </thead>
     <tbody id="materias-table-body">
         <!-- Data will be inserted here by JavaScript -->
     </tbody>
   </table>
+
+  <div id="detalle-faltas-container" style="width: 98%; margin-top: 2rem; display: none;">
+    <span class="Titulo" id="detalle-faltas-materia"></span>
+    <table width="100%" border="1" align="center" cellspacing="0">
+        <thead>
+            <tr>
+                <th class="EtiquetaEnc">Fecha de la Falta</th>
+            </tr>
+        </thead>
+        <tbody id="detalle-faltas-table-body">
+            <!-- Absence details will be inserted here -->
+        </tbody>
+    </table>
+  </div>
+
 </center>
 
 <div id="footer-container"></div>
