@@ -11,11 +11,11 @@ document.addEventListener("DOMContentLoaded", function() {
     
     if (headerContainer) {
         headerContainer.innerHTML = headerHtml;
-        const userName = localStorage.getItem('userName');
-        if (userName) {
+        const studentName = localStorage.getItem('studentName');
+        if (studentName) {
             const headerUsername = document.getElementById('header-username');
             if (headerUsername) {
-                headerUsername.textContent = userName;
+                headerUsername.textContent = studentName;
             }
         }
         document.body.classList.add('has-header');
