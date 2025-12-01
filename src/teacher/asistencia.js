@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const backendUrl = import.meta.env.VITE_API_BASE_URL || '/api'; // Use a fallback for the assumed API
     const token = localStorage.getItem('accessToken');
 
-    if (localStorage.getItem('userRole') !== 'Docente') {
+    if (!token || localStorage.getItem('userRole') !== 'Docente') {
         alert('Acceso denegado. Esta página es solo para profesores.');
         window.location.href = '/index.html';
         return;
