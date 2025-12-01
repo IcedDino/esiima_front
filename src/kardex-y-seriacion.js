@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const materiaId = event.target.dataset.materiaId;
             const materiaNombre = event.target.dataset.materiaNombre;
             const partialGradesContainer = document.getElementById('partial-grades-container');
+            const partialGradesTitle = document.getElementById('partial-grades-materia-title'); // Corrected: Get DOM element
             const partialGradesTableHead = document.getElementById('partial-grades-table-head'); // Get the thead
             const partialGradesTableBody = document.getElementById('partial-grades-table-body');
 
