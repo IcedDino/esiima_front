@@ -34,7 +34,10 @@ document.getElementById('change-verification-key-form').addEventListener('submit
 
         if (response.ok) {
             alert('Clave de verificación cambiada exitosamente.');
-            window.location.href = '/pages/main.html';
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('studentName');
+            window.location.href = '/index.html';
         } else {
             const errorData = await response.json();
             alert(errorData.detail || 'Error al cambiar la clave de verificación.');

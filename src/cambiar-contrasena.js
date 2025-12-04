@@ -34,7 +34,10 @@ document.getElementById('change-password-form').addEventListener('submit', async
 
         if (response.ok) {
             alert('Contraseña cambiada exitosamente.');
-            window.location.href = '/pages/main.html';
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('studentName');
+            window.location.href = '/index.html';
         } else {
             const errorData = await response.json();
             alert(errorData.detail || 'Error al cambiar la contraseña.');
