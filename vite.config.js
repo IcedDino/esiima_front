@@ -26,6 +26,8 @@ export default defineConfig({
         cajas: resolve(__dirname, "pages/cajas.html"),
         // New enrollment and teacher pages
         "enroll-personal-data": resolve(__dirname, "pages/enroll/personal-data.html"),
+        "enroll-documents": resolve(__dirname, "pages/enroll/documents.html"),
+        "enroll-documents-login": resolve(__dirname, "pages/enroll/documents-login.html"),
         "teacher-asistencia": resolve(__dirname, "pages/teacher/asistencia.html"),
         "teacher-calificaciones": resolve(__dirname, "pages/teacher/calificaciones.html"),
       },
