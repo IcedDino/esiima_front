@@ -19,6 +19,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         if (response.ok) {
             const data = await response.json();
+            const evalRes = await fetch(`${backendUrl}/evaluaciones/me`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const existing = evalRes.ok ? await evalRes.json() : [];
+            const ratedMap = new Map(existing.map(ev => [`${ev.profesor_id}|${ev.materia_id}`, ev.calificacion]));
             const tableBody = document.getElementById('profesores-table-body');
             
             if (data.length === 0) {
@@ -46,6 +55,20 @@ document.addEventListener('DOMContentLoaded', async function() {
                     }
                     
                     ratingCell.appendChild(ratingContainer);
+
+                    const key = `${profesor.id}|${profesor.materia_id}`;
+                    const existingRating = ratedMap.get(key);
+                    if (existingRating !== undefined) {
+                        const stars = ratingContainer.querySelectorAll('.star');
+                        stars.forEach(s => {
+                            s.classList.remove('selected');
+                            if (Number(s.dataset.value) <= Number(existingRating)) {
+                                s.classList.add('selected');
+                            }
+                        });
+                        ratingContainer.style.opacity = '0.6';
+                        ratingContainer.style.pointerEvents = 'none';
+                    }
 
                     ratingContainer.addEventListener('click', async (event) => {
                         if (event.target.classList.contains('star')) {
@@ -75,6 +98,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                                             s.classList.add('selected');
                                         }
                                     });
+                                    ratingContainer.style.opacity = '0.6';
+                                    ratingContainer.style.pointerEvents = 'none';
                                 } else {
                                     const errorData = await evalResponse.json();
                                     alert(errorData.detail || 'Error al enviar la evaluación.');
