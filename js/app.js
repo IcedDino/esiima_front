@@ -18,6 +18,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 headerUsername.textContent = studentName;
             }
         }
+        const roleForTopnav = localStorage.getItem('userRole');
+        if (roleForTopnav === 'Docente') {
+            const cajasItem = document.querySelector('#topnav .nav-item[data-section="cajas"]');
+            if (cajasItem) {
+                cajasItem.remove();
+            }
+        }
         document.body.classList.add('has-header');
     }
 
