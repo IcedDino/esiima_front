@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                     const row = tableBody.insertRow();
                     row.insertCell().textContent = examen.materia;
                     row.insertCell().textContent = examen.semestre;
-                    row.insertCell().textContent = examen.calificacion;
-                    row.insertCell().textContent = examen.maestro;
-                    row.insertCell().textContent = examen.lugar_fecha_hora;
+                    row.insertCell().textContent = (examen.calificacion === null || examen.calificacion === undefined) ? '' : examen.calificacion;
+                    row.insertCell().textContent = examen.maestro || '';
+                    row.insertCell().textContent = examen.lugar_fecha_hora || '';
                 });
             }
         } else {
