@@ -2,10 +2,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     const { jsPDF } = window.jspdf;
     const backendUrl = import.meta.env.VITE_API_BASE_URL;
     const token = localStorage.getItem('accessToken');
+    const role = localStorage.getItem('userRole');
 
     if (!token) {
         alert('No estás autenticado.');
         window.location.href = '/index.html';
+        return;
+    }
+
+    if (role !== 'student') {
+        alert('Acceso denegado. Esta página es sólo para alumnos.');
+        window.location.href = role === 'Docente' ? '/pages/teacher/asistencia.html' : '/index.html';
         return;
     }
 

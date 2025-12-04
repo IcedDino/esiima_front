@@ -179,11 +179,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 
                 const row = attendanceTableBody.insertRow();
                 row.dataset.studentId = student.id;
+                const presentChecked = isPresent || (!studentAttendance) || (!isPresent && !isAbsent);
+                const absentChecked = isAbsent;
                 row.innerHTML = `
                     <td>${student.matricula}</td>
                     <td>${student.nombre}</td>
-                    <td><input type="radio" name="asistencia-${student.id}" value="presente" ${isPresent || !studentAttendance ? 'checked' : ''}></td>
-                    <td><input type="radio" name="asistencia-${student.id}" value="ausente" ${isAbsent ? 'checked' : ''}></td>
+                    <td><input type="radio" name="asistencia-${student.id}" value="presente" ${presentChecked ? 'checked' : ''}></td>
+                    <td><input type="radio" name="asistencia-${student.id}" value="ausente" ${absentChecked ? 'checked' : ''}></td>
                 `;
             });
             
@@ -209,7 +211,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         const rows = attendanceTableBody.querySelectorAll('tr[data-student-id]');
         rows.forEach(row => {
             const studentId = row.dataset.studentId;
-            const selectedStatus = row.querySelector('input[type="radio"]:checked').value;
+            const selectedInput = row.querySelector('input[type="radio"]:checked');
+            const selectedStatus = selectedInput ? selectedInput.value : 'presente';
             attendanceData.push({ student_id: studentId, status: selectedStatus });
         });
 
