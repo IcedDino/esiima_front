@@ -30,9 +30,10 @@ document.getElementById('login-form').addEventListener('submit', async function(
                     window.location.href = '/pages/teacher/asistencia.html';
                 } else if (data.role === 'student') {
                     localStorage.setItem('userRole', 'student');
+                    localStorage.setItem('documentsRequired', data.requires_documents ? 'true' : 'false');
                     if (data.requires_documents) {
                         alert(`Debes subir documentos obligatorios: ${(data.missing_documents || []).join(', ')}`);
-                        window.location.href = '/pages/enroll/documents.html';
+                        window.location.href = '/pages/exp-de-documentos.html';
                     } else {
                         window.location.href = '/pages/situacion-actual.html';
                     }

@@ -41,6 +41,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if (target) {
                 target.classList.add('selected');
             }
+            const documentsRequiredTop = localStorage.getItem('documentsRequired') === 'true';
+            const roleTop = localStorage.getItem('userRole');
+            if (roleTop === 'student' && documentsRequiredTop) {
+                const controlLink = topnavEl.querySelector('a[data-page="control-escolar"]');
+                if (controlLink) controlLink.setAttribute('href', '/pages/exp-de-documentos.html');
+            }
         }
         document.body.classList.add('has-header');
     }
@@ -66,6 +72,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } catch (e) {}
         });
+
+        const documentsRequired = localStorage.getItem('documentsRequired') === 'true';
+        if (userRole === 'student' && documentsRequired) {
+            links.forEach(link => {
+                const href = link.getAttribute('href') || '';
+                const allow = href.includes('/pages/exp-de-documentos.html') || href.includes('/pages/cajas.html');
+                if (!allow) {
+                    link.style.pointerEvents = 'none';
+                    link.style.opacity = '0.6';
+                    link.addEventListener('click', function(ev) { ev.preventDefault(); alert('Debes subir tus documentos obligatorios antes de acceder.'); });
+                }
+            });
+        }
     }
 
     if (footerContainer) {
