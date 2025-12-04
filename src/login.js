@@ -27,14 +27,16 @@ document.getElementById('login-form').addEventListener('submit', async function(
                 // Backend returns "teacher" or "student", frontend expects "Docente" or "student"
                 if (data.role === 'teacher') {
                     localStorage.setItem('userRole', 'Docente');
-                    // Redirect teachers to their first available page
                     window.location.href = '/pages/teacher/asistencia.html';
                 } else if (data.role === 'student') {
                     localStorage.setItem('userRole', 'student');
-                    // Redirect students to their page
-                    window.location.href = '/pages/situacion-actual.html';
+                    if (data.requires_documents) {
+                        alert(`Debes subir documentos obligatorios: ${(data.missing_documents || []).join(', ')}`);
+                        window.location.href = '/pages/enroll/documents.html';
+                    } else {
+                        window.location.href = '/pages/situacion-actual.html';
+                    }
                 } else {
-                    // Unknown role, default to student page
                     localStorage.setItem('userRole', data.role || 'student');
                     window.location.href = '/pages/situacion-actual.html';
                 }

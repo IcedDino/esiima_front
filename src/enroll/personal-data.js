@@ -48,12 +48,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Datos personales registrados con éxito. Ahora sube tus documentos.');
                 window.location.href = '/pages/enroll/documents.html';
             } else {
-                const errorData = await response.json();
-                alert(errorData.detail || 'Error al registrar datos personales.');
+                let message = `Error al registrar datos personales (HTTP ${response.status})`;
+                try {
+                    const text = await response.text();
+                    try {
+                        const json = JSON.parse(text);
+                        if (json.detail || json.message) {
+                            message += `: ${json.detail || json.message}`;
+                        } else {
+                            message += `: ${text.slice(0, 200)}`;
+                        }
+                    } catch {
+                        message += `: ${text.slice(0, 200)}`;
+                    }
+                } catch {
+                    // ignore
+                }
+                alert(message);
             }
         } catch (error) {
             console.error('Error durante el registro de datos personales:', error);
-            alert('Ocurrió un error al registrar los datos personales.');
+            alert(`Ocurrió un error al registrar los datos personales: ${error?.name || 'Error'} - ${error?.message || 'Load failed'}. Posible CORS o servidor no disponible.`);
         }
     });
 });
