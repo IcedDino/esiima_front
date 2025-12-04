@@ -37,16 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             if (response.ok) {
-                const data = await response.json();
-                // Assuming the backend returns a temporary token or user ID for the enrollment process
-                // or directly logs in the user and provides an accessToken
-                if (data.access_token) {
-                    localStorage.setItem('accessToken', data.access_token);
-                    localStorage.setItem('studentName', data.student_name);
-                    localStorage.setItem('userRole', 'student'); // New students are students
-                }
-                alert('Datos personales registrados con éxito. Ahora sube tus documentos.');
-                window.location.href = '/pages/enroll/documents.html';
+                await response.json();
+                alert('Datos personales registrados con éxito. Inicia sesión para continuar.');
+                window.location.href = '/index.html';
             } else {
                 let message = `Error al registrar datos personales (HTTP ${response.status})`;
                 try {
