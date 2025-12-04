@@ -25,6 +25,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 cajasItem.remove();
             }
         }
+        const currentPath = window.location.pathname.toLowerCase();
+        const topnavEl = document.getElementById('topnav');
+        if (topnavEl) {
+            topnavEl.querySelectorAll('.nav-item').forEach(i => i.classList.remove('selected'));
+            let target = null;
+            if (currentPath.includes('/pages/cajas.html')) {
+                target = topnavEl.querySelector('.nav-item[data-section="cajas"]');
+            } else {
+                target = topnavEl.querySelector('.nav-item[data-section="control-escolar"]');
+            }
+            if (!target) {
+                target = topnavEl.querySelector('.nav-item');
+            }
+            if (target) {
+                target.classList.add('selected');
+            }
+        }
         document.body.classList.add('has-header');
     }
 
@@ -38,6 +55,17 @@ document.addEventListener("DOMContentLoaded", function() {
             navigationContainer.innerHTML = studentNavigationHtml;
         }
         document.body.classList.add('has-sidebar');
+        const currentPath = window.location.pathname;
+        const links = navigationContainer.querySelectorAll('.menu-link');
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            try {
+                const hrefPath = new URL(href, window.location.origin).pathname;
+                if (hrefPath === currentPath) {
+                    link.classList.add('active');
+                }
+            } catch (e) {}
+        });
     }
 
     if (footerContainer) {
